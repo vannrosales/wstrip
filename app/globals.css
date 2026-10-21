@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+:root {
+  --accent: #007aff;
+  --label: #1d1d1f;
+  --label-secondary: rgba(60, 60, 67, 0.62);
+  --separator: rgba(0, 0, 0, 0.1);
+}
+
+@theme inline {
+  --color-accent: var(--accent);
+  --color-label: var(--label);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", var(--font-geist-sans), "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", var(--font-geist-mono), Menlo, monospace;
+}
+
+html {
+  color-scheme: only light;
+  background-color: #eef0f7;
+}
+
+body {
+  min-height: 100dvh;
+  color: var(--label);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  /* Sonoma-like wallpaper */
+  background:
+    radial-gradient(60% 50% at 15% 10%, rgba(255, 170, 120, 0.55), transparent 70%),
+    radial-gradient(55% 55% at 85% 15%, rgba(120, 140, 255, 0.55), transparent 70%),
+    radial-gradient(60% 60% at 70% 90%, rgba(255, 120, 190, 0.45), transparent 70%),
+    radial-gradient(50% 50% at 10% 85%, rgba(90, 200, 250, 0.45), transparent 70%),
+    #eef0f7;
+  background-attachment: fixed;
+}
+
+/* ---------- macOS surfaces ---------- */
+.mac-window {
+  background: rgba(255, 255, 255, 0.72);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.18),
+    0 22px 60px -12px rgba(30, 30, 60, 0.35),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.9);
+}
+
+.mac-titlebar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: rgba(246, 246, 248, 0.75);
+  border-bottom: 1px solid var(--separator);
+}
+
+.mac-sidebar {
+  background: rgba(236, 238, 245, 0.6);
+  border-right: 1px solid var(--separator);
+}
+
+.mac-card {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.traffic-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.18);
+}
+
+.mac-btn-primary {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(125deg, #007aff 0%, #5856d6 42%, #af52de 75%, #ff2d55 100%);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 9999px;
+  box-shadow:
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.72),
+    inset 0 -2px 4px rgba(0, 20, 80, 0.35),
+    0 12px 28px -6px rgba(0, 122, 255, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.45);
+  transition: filter 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+.mac-btn-primary::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  bottom: -60%;
+  left: -35%;
+  width: 48px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  transform: rotate(25deg);
+  animation: shaderSweep 3.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  pointer-events: none;
+}
+.mac-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.85),
+    0 16px 34px -6px rgba(175, 82, 222, 0.55),
+    0 0 0 1.5px rgba(255, 255, 255, 0.65);
+}
+.mac-btn-primary:active:not(:disabled) { filter: brightness(0.95); transform: scale(0.97); }
+.mac-btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+@keyframes shaderSweep {
+  0% { left: -35%; }
+  55%, 100% { left: 135%; }
+}
+
+.mac-btn {
+  background: linear-gradient(#ffffff, #f6f6f7);
+  color: var(--label);
+  font-weight: 500;
+  border-radius: 8px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.08);
+  transition: background 0.15s, transform 0.1s;
+}
+.mac-btn:hover:not(:disabled) { background: #fff; }
+.mac-btn:active:not(:disabled) { background: #ececee; transform: scale(0.99); }
+.mac-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.mac-segmented {
+  display: inline-flex;
+  padding: 2px;
+  gap: 2px;
+  border-radius: 9px;
+  background: rgba(120, 120, 128, 0.16);
+}
+.mac-segmented button {
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 7px;
+  color: var(--label);
+  transition: background 0.15s, box-shadow 0.15s;
+}
+.mac-segmented button[aria-pressed="true"] {
+  background: #fff;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.mac-input {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 7px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.22), inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.mac-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3.5px rgba(0, 122, 255, 0.4), 0 0 0 0.5px rgba(0, 122, 255, 0.9);
+}
+
+.mac-menubar {
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.12);
+}
+
+.mac-dock {
+  background: rgba(255, 255, 255, 0.45);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  border-radius: 22px;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.18), 0 12px 30px -8px rgba(0, 0, 0, 0.3),
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.8);
+}
+
+:focus-visible {
+  outline: 3px solid rgba(0, 122, 255, 0.55);
+  outline-offset: 2px;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn { animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+@keyframes floaty {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--r, 0deg)); }
+}
+.animate-floaty { animation: floaty 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-floaty, .animate-fadeIn, .animate-ping, .animate-bounce, .animate-pulse { animation: none !important; }
+}
