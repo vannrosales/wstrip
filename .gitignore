@@ -37,8 +37,8 @@ yarn-error.log*
 .vercel
 
 # local media scratch
-videoplayback.mp4
-wstrip-promo.mp4
+/videoplayback.mp4
+/wstrip-promo.mp4
 
 # typescript
 *.tsbuildinfo
