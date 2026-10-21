@@ -227,18 +227,33 @@ export default function BoothPage() {
       <MacWindow
         title="Photo Booth"
         toolbar={
-          <div className="mac-segmented" role="group" aria-label="Countdown length">
-            {([3, 5] as const).map((s) => (
-              <button
-                key={s}
-                type="button"
-                aria-pressed={countdownDuration === s}
-                onClick={() => setCountdownDuration(s)}
-                disabled={isCapturingSequence}
-              >
-                {s}s
-              </button>
-            ))}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setMirrored((m) => !m)}
+              aria-pressed={mirrored}
+              className={`mac-btn inline-flex h-7 items-center gap-1.5 px-2.5 text-xs font-medium transition-colors ${
+                mirrored
+                  ? 'bg-[#007aff]/15 text-[#007aff] shadow-none ring-1 ring-[#007aff]/30'
+                  : 'text-black/70'
+              }`}
+              title={mirrored ? 'Disable selfie mirroring' : 'Enable selfie mirroring'}
+            >
+              <span>{mirrored ? 'Mirror: On' : 'Mirror: Off'}</span>
+            </button>
+            <div className="mac-segmented" role="group" aria-label="Countdown length">
+              {([3, 5] as const).map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  aria-pressed={countdownDuration === s}
+                  onClick={() => setCountdownDuration(s)}
+                  disabled={isCapturingSequence}
+                >
+                  {s}s
+                </button>
+              ))}
+            </div>
           </div>
         }
         footer={

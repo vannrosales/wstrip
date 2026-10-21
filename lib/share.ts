@@ -80,6 +80,53 @@ export async function shareStrip(
 }
 
 /**
+ * Shares the photostrip specifically tailored for Instagram Stories, Facebook Stories,
+ * or general native story sharing with automatic download and copy fallbacks.
+ */
+export async function shareToStory(
+  blob: Blob,
+  platform: 'instagram' | 'facebook' | 'general' = 'general',
+  filename = 'wstrip-story.png'
+): Promise<ShareResult> {
+  const file = new File([blob], filename, { type: 'image/png' });
+
+  // 1. Native Web Share API with image file attached
+  if (typeof navigator !== 'undefined' && navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({
+        files: [file],
+        title: platform === 'instagram' ? 'Share to Instagram Story' : 'Share to Facebook Story',
+        text: 'My photostrip from wStrip! 📸',
+      });
+      return { success: true, method: 'web-share' };
+    } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        return { success: false, cancelled: true };
+      }
+    }
+  }
+
+  // 2. Fallback: Copy to clipboard so user can paste directly into Instagram/Facebook Story
+  const copied = await copyStripToClipboard(blob);
+  if (copied) {
+    // If mobile deep-link scheme is applicable
+    if (typeof window !== 'undefined') {
+      if (platform === 'instagram') {
+        // Open Instagram app if on mobile
+        window.location.href = 'instagram://story-camera';
+      } else if (platform === 'facebook') {
+        window.location.href = 'fb://';
+      }
+    }
+    return { success: true, method: 'clipboard' };
+  }
+
+  // 3. Fallback: Direct download
+  downloadStrip(blob, filename);
+  return { success: true, method: 'download' };
+}
+
+/**
  * Generates external social share URLs.
  */
 export function getSocialShareLinks(shareUrl: string, text: string) {

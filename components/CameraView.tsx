@@ -93,13 +93,16 @@ export function CameraView({
             type="button"
             onClick={onToggleMirror}
             aria-pressed={mirrored}
-            aria-label="Mirror preview"
-            title="Mirror preview"
-            className={`flex h-9 w-9 items-center justify-center rounded-full backdrop-blur-xl ring-1 ring-white/25 transition-colors ${
-              mirrored ? 'bg-[#007aff] text-white' : 'bg-black/40 text-white hover:bg-black/55'
+            aria-label={mirrored ? 'Disable selfie mirroring' : 'Enable selfie mirroring'}
+            title={mirrored ? 'Mirror: On (click to disable)' : 'Mirror: Off (click to enable)'}
+            className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium backdrop-blur-xl ring-1 ring-white/25 transition-all ${
+              mirrored
+                ? 'bg-[#007aff] text-white shadow-[0_0_12px_rgba(0,122,255,0.45)]'
+                : 'bg-black/45 text-white/90 hover:bg-black/60'
             }`}
           >
-            <FlipHorizontal className="h-4 w-4" />
+            <FlipHorizontal className="h-3.5 w-3.5" />
+            <span>{mirrored ? 'Mirror On' : 'Mirror Off'}</span>
           </button>
           <button
             type="button"

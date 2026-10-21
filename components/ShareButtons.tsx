@@ -2,8 +2,18 @@
 
 import { useState } from 'react';
 import { Share2, Download, Copy, Check, MessageCircle } from 'lucide-react';
-import { shareStrip, downloadStrip, copyStripToClipboard, getSocialShareLinks } from '@/lib/share';
+import { shareStrip, downloadStrip, copyStripToClipboard, shareToStory, getSocialShareLinks } from '@/lib/share';
 import confetti from 'canvas-confetti';
+
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
 
 function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -94,6 +104,28 @@ export function ShareButtons({ stripBlob, templateName = 'wstrip' }: ShareButton
     }
   };
 
+  const handleShareStory = async (platform: 'instagram' | 'facebook') => {
+    if (!stripBlob) return;
+    setIsSharing(true);
+    const platformLabel = platform === 'instagram' ? 'Instagram' : 'Facebook';
+    const result = await shareToStory(stripBlob, platform, filename());
+    setIsSharing(false);
+
+    if (result.success) {
+      triggerConfetti();
+      if (result.method === 'web-share') {
+        flash(`Select ${platformLabel} > Stories to post!`);
+      } else if (result.method === 'clipboard') {
+        flash(`Strip copied! Paste into ${platformLabel} Story`);
+      } else {
+        flash(`Strip downloaded! Pick from gallery in ${platformLabel} Story`);
+      }
+    } else if (!result.cancelled) {
+      downloadStrip(stripBlob, filename());
+      flash(`Strip downloaded! Upload to your ${platformLabel} Story`);
+    }
+  };
+
   const siteUrl =
     typeof window !== 'undefined' ? window.location.origin : 'https://wstrip.vercel.app';
   const links = getSocialShareLinks(
@@ -123,6 +155,31 @@ export function ShareButtons({ stripBlob, templateName = 'wstrip' }: ShareButton
         <Share2 className="h-4 w-4" />
         {isSharing ? 'Sharing...' : 'Share'}
       </button>
+
+      {/* Story Quick-Share Actions */}
+      <div className="flex flex-col gap-1.5">
+        <span className="text-[11px] font-medium text-black/55">Post to Stories</span>
+        <div className="grid grid-cols-2 gap-2">
+          <button
+            type="button"
+            onClick={() => handleShareStory('instagram')}
+            disabled={!stripBlob || isSharing}
+            className="mac-btn flex h-9 items-center justify-center gap-1.5 text-xs font-medium text-black/80 hover:text-[#d62976]"
+          >
+            <InstagramIcon className="text-[#d62976]" />
+            Instagram Story
+          </button>
+          <button
+            type="button"
+            onClick={() => handleShareStory('facebook')}
+            disabled={!stripBlob || isSharing}
+            className="mac-btn flex h-9 items-center justify-center gap-1.5 text-xs font-medium text-black/80 hover:text-[#1877f2]"
+          >
+            <FacebookIcon className="text-[#1877f2]" />
+            Facebook Story
+          </button>
+        </div>
+      </div>
 
       <div className="grid grid-cols-2 gap-2">
         <button
