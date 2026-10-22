@@ -26,10 +26,10 @@ export function MacWindow({
           <span className="traffic-light bg-[#febc2e]" />
           <span className="traffic-light bg-[#28c840]" />
         </div>
-        <div className="pointer-events-none absolute inset-x-0 text-center text-[13px] font-semibold text-black/70">
+        <div className="pointer-events-none absolute inset-x-14 hidden truncate text-center text-[13px] font-semibold text-black/70 sm:block">
           {title}
         </div>
-        <div className="relative z-10 ml-auto flex items-center gap-2">{toolbar}</div>
+        <div className="relative z-10 ml-auto flex items-center gap-1.5 sm:gap-2">{toolbar}</div>
       </header>
       <div className={`min-h-0 flex-1 ${bodyClassName}`}>{children}</div>
       {footer && (

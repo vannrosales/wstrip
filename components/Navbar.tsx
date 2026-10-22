@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Aperture, Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX } from 'lucide-react';
 import { useSyncExternalStore } from 'react';
 
 const NAV_LINKS = [
@@ -46,10 +47,16 @@ export function Navbar() {
           <Link
             href="/"
             aria-label="wStrip home"
-            className="flex items-center gap-1.5 rounded-md px-2 py-1 font-bold text-black/85 hover:bg-black/5"
+            className="flex items-center gap-2 rounded-md px-2 py-1 font-bold text-black/85 hover:bg-black/5"
           >
-            <Aperture className="h-4 w-4 text-[#007aff]" strokeWidth={2.25} />
-            <span>wStrip</span>
+            <Image
+              src="/wstrip-logo.png"
+              alt="wStrip"
+              width={82}
+              height={22}
+              priority
+              className="h-5 w-auto object-contain"
+            />
           </Link>
           {NAV_LINKS.map((l) => (
             <Link

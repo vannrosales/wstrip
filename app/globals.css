@@ -15,6 +15,14 @@
   --font-mono: ui-monospace, "SF Mono", var(--font-geist-mono), Menlo, monospace;
 }
 
+/* Touch target & mobile viewport improvements */
+@media (pointer: coarse) {
+  button, a {
+    min-height: 40px;
+    touch-action: manipulation;
+  }
+}
+
 html {
   color-scheme: only light;
   background-color: #eef0f7;

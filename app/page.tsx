@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   Aperture,
   ArrowRight,
@@ -103,7 +104,13 @@ export default function LandingPage() {
       <section className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 pb-10 pt-12 sm:px-6 md:grid-cols-2 md:pt-20">
         <div className="text-center md:text-left">
           <p className="mx-auto inline-flex items-center gap-2 rounded-full bg-white/60 px-3 py-1 text-xs font-medium text-black/70 shadow-[0_0_0_0.5px_rgba(0,0,0,0.12)] backdrop-blur-xl md:mx-0">
-            <Aperture className="h-3.5 w-3.5 text-[#007aff]" />
+            <Image
+              src="/icon.png"
+              alt="wStrip"
+              width={16}
+              height={16}
+              className="h-4 w-4 object-contain"
+            />
             Free online photobooth. No login.
           </p>
           <h1 className="mt-5 text-5xl font-semibold leading-[1.05] tracking-tight text-black/90 sm:text-6xl lg:text-7xl">
@@ -294,8 +301,15 @@ export default function LandingPage() {
         </Link>
       </section>
 
-      <footer className="mt-20 text-center text-xs text-black/45">
-        wStrip &middot; Free forever &middot; Photos stay on your device
+      <footer className="mt-20 flex flex-col items-center gap-2 text-center text-xs text-black/45">
+        <Image
+          src="/wstrip-logo.png"
+          alt="wStrip Logo"
+          width={76}
+          height={20}
+          className="h-4 w-auto opacity-70 object-contain"
+        />
+        <p>wStrip &middot; Free forever &middot; Photos stay on your device</p>
       </footer>
     </div>
   );

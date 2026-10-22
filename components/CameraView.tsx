@@ -35,7 +35,7 @@ export function CameraView({
   }, [camera.stream]);
 
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-neutral-900 shadow-[0_0_0_0.5px_rgba(0,0,0,0.4),0_10px_30px_-10px_rgba(0,0,0,0.5)]">
+    <div className="relative aspect-[4/3] max-h-[68dvh] w-full overflow-hidden rounded-xl bg-neutral-900 shadow-[0_0_0_0.5px_rgba(0,0,0,0.4),0_10px_30px_-10px_rgba(0,0,0,0.5)]">
       {camera.stream ? (
         <video
           ref={videoRef}

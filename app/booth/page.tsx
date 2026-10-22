@@ -227,12 +227,12 @@ export default function BoothPage() {
       <MacWindow
         title="Photo Booth"
         toolbar={
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               type="button"
               onClick={() => setMirrored((m) => !m)}
               aria-pressed={mirrored}
-              className={`mac-btn inline-flex h-7 items-center gap-1.5 px-2.5 text-xs font-medium transition-colors ${
+              className={`mac-btn inline-flex h-7 items-center gap-1 px-2 text-xs font-medium transition-colors sm:px-2.5 sm:gap-1.5 ${
                 mirrored
                   ? 'bg-[#007aff]/15 text-[#007aff] shadow-none ring-1 ring-[#007aff]/30'
                   : 'text-black/70'
@@ -249,6 +249,7 @@ export default function BoothPage() {
                   aria-pressed={countdownDuration === s}
                   onClick={() => setCountdownDuration(s)}
                   disabled={isCapturingSequence}
+                  className="px-2 sm:px-3"
                 >
                   {s}s
                 </button>
@@ -335,7 +336,7 @@ export default function BoothPage() {
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-4 gap-2 md:grid-cols-2">
             {Array.from({ length: template.shots }).map((_, idx) => {
               const photo = capturedPhotos[idx];
               const isRetakingThis = retakeIndex === idx;
